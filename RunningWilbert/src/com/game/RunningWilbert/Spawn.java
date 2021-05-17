@@ -23,28 +23,24 @@ public class Spawn {
 			scoreKeep = 0;
 			hud.setLevel(hud.getLevel() + 1);
 			
-			switch(hud.getLevel()) {
-			case 1:
-				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.BasicEnemy, handler));
-			break;
+			//handler.addObject(new Boss1(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Boss1, handler));
 			
-			case 2:
-				handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.FastEnemy, handler));
-			break;
 			
-			case 3: 
-				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.SmartEnemy, handler));
-			break;
-			
-			case 4: 
-				handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.SmartEnemy, handler));
-			break;
-			}
-			//if(hud.getLevel() == 2) {
 				
-			//}
+				switch (hud.getLevel()) {
+				case 2: handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH -50), r.nextInt(Game.HEIGHT -50), ID.FastEnemy, handler));
+					break;
+					
+				case 3: handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH -50), r.nextInt(Game.HEIGHT -50), ID.SmartEnemy, handler));
+					break;
+					
+				case 4: 
+					handler.clearEnemys();
+					handler.addObject(new Boss1(r.nextInt(Game.WIDTH /2) - 48, r.nextInt(Game.HEIGHT /2) - 70, ID.Boss1, handler));
+					break;
+					
 				
-				
+				}	
 		}
 	}
 }
