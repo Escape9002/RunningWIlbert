@@ -8,10 +8,12 @@ import java.util.Random;
 public class Boss1 extends GameObject{
 
 	private Handler handler;
-	Random r = new Random();
+	Random r = new Random(); 
 	
 	private int timer = 50;
 	private int timer2 = 50;
+	
+	private int lastLevel = 0;
 	
 	public Boss1(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
@@ -22,8 +24,9 @@ public class Boss1 extends GameObject{
 		velY= 2;
 	}
 	
+	
 	public void tick() {
-		x+= velX;
+		x += velX;
 		y += velY;
 		
 		if(timer <= 0) {
@@ -42,10 +45,9 @@ public class Boss1 extends GameObject{
 			if (spawn == 0) handler.addObject(new Boss1Bullet((int) x + 48, (int)y + 48, ID.BasicEnemy, handler)); 
 		}
 		
-		//if(y <= 0 || y >= Game.HEIGHT - 50) velY *= -1;
 		if(x <= 0 || x >= Game.WIDTH - 64) velX *= -1;
 		
-		//handler.addObject(new Trail ((int)x, (int)y, ID.Trail, Color.red , 64, 64, 0.008f, handler));
+		
 	}
 	
 	public void render(Graphics g) {
