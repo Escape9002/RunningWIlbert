@@ -1,5 +1,5 @@
 package com.game.RunningWilbert;
-//help
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
