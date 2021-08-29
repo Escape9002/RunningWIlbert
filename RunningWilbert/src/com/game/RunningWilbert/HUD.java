@@ -35,7 +35,7 @@ public class HUD {
 		
 	}
 	
-	public void score(int score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 	

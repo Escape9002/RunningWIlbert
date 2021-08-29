@@ -15,6 +15,9 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	
+	public static boolean paused = false;
+	public static boolean Single = true;
+	
 	private Random r;
 	private Handler handler;
 	private HUD hud;
@@ -25,6 +28,7 @@ public class Game extends Canvas implements Runnable{
 		Menu,
 		Help,
 		Game,
+		Settings,
 		End
 	};
 	
@@ -40,6 +44,9 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler, this));
 		this.addMouseListener(menu);
 		
+		AudioPlayer.load();
+		
+		AudioPlayer.getMusic("music").loop();
 		
 		new Window(WIDTH, HEIGHT, "Running Wilbert!", this);
 		
@@ -50,7 +57,13 @@ public class Game extends Canvas implements Runnable{
 		
 		if(gameState == STATE.Game) {
 			
-			handler.addObject(new Player(WIDTH/2-32,HEIGHT/2-32, ID.Player, handler));
+			if(Single) {
+				handler.addObject(new Player(WIDTH/2-32,HEIGHT/2-32, ID.Player1, handler));
+			}else if (!Single) {
+				handler.addObject(new Player(WIDTH/2-32,HEIGHT/2-32, ID.Player1, handler));
+				handler.addObject(new Player(WIDTH/2-32,HEIGHT/2-32, ID.Player2, handler));
+			}
+			
 			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH -50 ), r.nextInt(Game.HEIGHT -50), ID.BasicEnemy, handler));
 		
 		}else {
@@ -78,14 +91,18 @@ public class Game extends Canvas implements Runnable{
 	}
 	
     private void tick() {
-    	handler.tick();
+    	
     	
     	if(gameState == STATE.Game) {
+    		
+    		if(!paused) {
+    		handler.tick();
     		hud.tick();
     		spawner.tick();
     		
     		if(HUD.HEALTH <= 0) {
     			HUD.HEALTH = 100;
+    			
     			gameState = STATE.End;
     			handler.clearAllEnemys();
     			
@@ -94,10 +111,13 @@ public class Game extends Canvas implements Runnable{
     			}
     			
     		}
-    	}else if(gameState ==STATE.Menu || gameState == STATE.End) {
-    		menu.tick();
     	}
     	
+    	}else if(gameState ==STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Settings) {
+    		menu.tick();
+    		handler.tick();
+    		
+    	}
 	}
 	
 	private void render() {
@@ -114,9 +134,13 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.render(g);
 		
+		if(paused) {
+			g.drawString("Paused", 100, 100);
+		}
+		
 		if(gameState == STATE.Game) {
 			hud.render(g);
-    	}else if(gameState ==STATE.Menu || gameState == STATE.Help || gameState == STATE.End) {
+    	}else if(gameState ==STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Settings) {
     		menu.render(g);
     	}
 		

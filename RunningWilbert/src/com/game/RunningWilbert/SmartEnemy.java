@@ -15,7 +15,7 @@ public class SmartEnemy extends GameObject{
 		this.handler = handler;
 		
 		for(int i= 0; i < handler.object.size(); i++) {
-			if(handler.object.get(i).getId() == ID.Player) player = handler.object.get(i);
+			if(handler.object.get(i).getId() == ID.Player1 ||handler.object.get(i).getId() == ID.Player2) player = handler.object.get(i);
 		}
 
 	}
