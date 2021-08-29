@@ -34,6 +34,13 @@ public class Handler {
 		}
 	}
 	
+	public void clearAllEnemys() {
+		for(int i = 0; i < object.size(); i ++) {
+
+			object.clear();	
+		}
+	}
+	
 	public void addObject(GameObject object) {
 		this.object.add(object);
 	}

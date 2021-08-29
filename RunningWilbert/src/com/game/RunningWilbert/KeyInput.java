@@ -2,15 +2,21 @@ package com.game.RunningWilbert;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import com.game.RunningWilbert.Game.STATE;
 
 public class KeyInput extends KeyAdapter {
 
+	private Game game;
 	private Handler handler;
 	private boolean[] keyDown = new boolean[4];
 	
+	Random r = new Random();
 	
-	public KeyInput(Handler handler) {
+	public KeyInput(Handler handler, Game game) {
 		this.handler = handler;
+		this.game = game;
 		
 		keyDown[0] = false;
 		keyDown[1] = false;
@@ -36,7 +42,19 @@ public class KeyInput extends KeyAdapter {
 				}
 			}
 		
-		if(key == KeyEvent.VK_ESCAPE) System.exit(1);
+		if(key == KeyEvent.VK_ESCAPE) {
+			if(game.gameState == STATE.Menu) {
+				System.exit(1);
+			}else if(game.gameState == STATE.Game) {
+				handler.clearAllEnemys();
+				game.gameState = STATE.Menu;
+				for (int i= 0; i<10; i++) {
+					handler.addObject(new MenuParticle(r.nextInt(game.WIDTH),r.nextInt(game.HEIGHT), ID.MenuParticle, handler));
+				}
+			}
+		}
+		
+		
 	}
 	
 	public void keyReleased(KeyEvent e) {
