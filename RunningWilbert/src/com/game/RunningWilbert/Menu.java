@@ -25,31 +25,21 @@ public class Menu extends MouseAdapter{
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		
+//--------------------------------------------------------Main Menu
 		if(game.gameState == STATE.Menu) {
 			
 			//Play
 			if(mouseOver(mx, my, 200, 150, 200, 64 )) {
-			game.gameState = STATE.Game;
-			hud.setLevel(1);
-			hud.setScore(0);
-			
-			
-			handler.clearAllEnemys();
-			if(game.Single) {
-				handler.addObject(new Player(game.WIDTH/2-32,game.HEIGHT/2-32, ID.Player1, handler));
-			}else if (!game.Single) {
-				handler.addObject(new Player(game.WIDTH/2-32,game.HEIGHT/2-32, ID.Player1, handler));
-				handler.addObject(new Player(game.WIDTH/2-32,game.HEIGHT/2-32, ID.Player2, handler));
-			}
-			handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH -50 ), r.nextInt(Game.HEIGHT -50), ID.BasicEnemy, handler));
+				
+			game.gameState = STATE.Select;
 			
 			AudioPlayer.getSound("ClickSound").play();
+			return;
 			}
 			
-			//Settings
+			//Help
 			if(mouseOver(mx, my, 200, 250, 200, 64)) {
-			game.gameState = STATE.Settings;
+			game.gameState = STATE.Help;
 			AudioPlayer.getSound("ClickSound").play();
 		
 			}
@@ -70,34 +60,58 @@ public class Menu extends MouseAdapter{
 			return;
 			}
 		}
-		
-		//Back Button for Settings
-		if(game.gameState == STATE.Settings) {
-			if(mouseOver(mx, my,200, 350, 200, 64)) {
-				game.gameState = STATE.Menu;
-				AudioPlayer.getSound("ClickSound").play();
-			return;
-			}
-		}
-		
-		//1Player
-		if(game.gameState == STATE.Settings) {
-			if(mouseOver(mx, my,200, 150, 200, 64)) {
-			game.Single = true;
-				AudioPlayer.getSound("ClickSound").play();
-			return;
-			}
-		}
+//----------------------------------------------------------Select Menu
+	if(game.gameState == STATE.Select) {
+			
+			//Normal
+			if(mouseOver(mx, my, 200, 150, 200, 64 )) {
+			
+				game.gameState = STATE.Game;
+				hud.setLevel(1);
+				hud.setScore(0);
 				
-		//2Player
-		if(game.gameState == STATE.Settings) {
-			if(mouseOver(mx, my,200, 250, 200, 64)) {
-				game.Single = false;
+				
+				handler.clearAllEnemys();
+				handler.addObject(new Player(game.WIDTH/2-32,game.HEIGHT/2-32, ID.Player, handler));
+				handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH -50 ), r.nextInt(Game.HEIGHT -50), ID.BasicEnemy, handler));
+				
+				game.diff = 0;
+	
 				AudioPlayer.getSound("ClickSound").play();
+				
+			}
+			
+			//Hard
+			if(mouseOver(mx, my, 200, 250, 200, 64)) {
+
+				game.gameState = STATE.Game;
+				hud.setLevel(1);
+				hud.setScore(0);
+				
+				
+				handler.clearAllEnemys();
+				handler.addObject(new Player(game.WIDTH/2-32,game.HEIGHT/2-32, ID.Player, handler));
+				handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH -50 ), r.nextInt(Game.HEIGHT -50), ID.BasicEnemy, handler));
+				
+				game.diff = 1;
+
+				AudioPlayer.getSound("ClickSound").play();
+				
+			}
+		}
+//-------------------------------------------------------------Back/ Try again Buttons
+	
+		
+		//Back Button for Help && Select
+		if(game.gameState == STATE.Help || game.gameState == STATE.Select) {
+			if(mouseOver(mx, my,200, 350, 200, 64)) {
+			game.gameState = STATE.Menu;
+			AudioPlayer.getSound("ClickSound").play();
 			return;
 			}
 		}
-		
+	
+
 		//Try again
 		if(game.gameState == STATE.End) {
 			if(mouseOver(mx, my,200, 350, 200, 64)) {
@@ -132,8 +146,7 @@ public class Menu extends MouseAdapter{
 	
 	public void render(Graphics g) {
 		
-		String MultiPlayer = "";
-		
+	
 		if(game.gameState == STATE.Menu) {
 			//--------------------------------------------Menu
 			Font fnt = new Font("arial", 1, 50);
@@ -150,69 +163,10 @@ public class Menu extends MouseAdapter{
 		
 	
 			g.drawRect(200, 250, 200, 64);
-			g.drawString("Settings", 245, 295);
+			g.drawString("Help", 265, 295);
 		
 			g.drawRect(200, 350, 200, 64);
 			g.drawString("Quit", 265, 395);
-			
-			if(game.Single) {
-				MultiPlayer = "Single";
-			}else if(!game.Single) {
-				MultiPlayer = "Coop";
-			}
-			g.drawString(MultiPlayer, 500, 55);
-			
-			
-		}else if(game.gameState == STATE.Settings) {
-			//--------------------------------------------Settings
-			Font fnt = new Font("arial", 1, 50);
-			Font fnt2 = new Font("arial", 1, 30);
-			Font fnt3 = new Font("arial", 1, 20);
-		
-			g.setFont(fnt);
-			g.setColor(Color.white);
-			g.drawString("Settings", 210, 85);
-		
-			g.setFont(fnt2);
-			
-			g.drawRect(200, 350, 200, 64);
-			g.drawString("Back", 265, 395);
-			
-			if(game.Single) {
-				g.setColor(Color.white);
-				g.drawRect(200, 150, 200, 64);
-				g.fillRect(200, 150, 200, 64);
-				
-				g.setColor(Color.black);
-				g.drawString("1 PLayer", 245, 195);
-				//-----------------------------------
-				g.setColor(Color.white);
-				g.drawRect(200, 250, 200, 64);
-				g.setColor(Color.black);
-				g.fillRect(200, 250, 200, 64);
-				
-				g.setColor(Color.white);
-				g.drawString("2 PLayer", 245, 295);
-				
-			
-			}else if(!game.Single) {
-				g.setColor(Color.black);
-				g.drawRect(200, 150, 200, 64);
-				g.fillRect(200, 150, 200, 64);
-				
-				g.setColor(Color.white);
-				g.drawString("1 PLayer", 245, 195);
-				//-----------------------------------
-				g.setColor(Color.black);
-				g.drawRect(200, 250, 200, 64);
-				g.setColor(Color.white);
-				g.fillRect(200, 250, 200, 64);
-				
-				g.setColor(Color.black);
-				g.drawString("2 PLayer", 245, 295);
-			}
-		
-			
 			
 		}else if(game.gameState == STATE.End) {
 			//-------------------------------------------End
@@ -252,6 +206,26 @@ public class Menu extends MouseAdapter{
 			g.drawRect(200, 350, 200, 64);
 			g.drawString("Back", 265, 395);
 			
+		}else if(game.gameState == STATE.Select) {
+			//-------------------------------------Select
+			Font fnt = new Font("arial", 1, 50);
+			Font fnt2 = new Font("arial", 1, 30);
+		
+			g.setFont(fnt);
+			g.setColor(Color.white);
+			g.drawString("Select difficulty", 125, 85);
+			
+			g.setFont(fnt2);
+	
+			g.drawRect(200, 150, 200, 64);
+			g.drawString("Normal", 265, 195);
+		
+	
+			g.drawRect(200, 250, 200, 64);
+			g.drawString("Hard", 265, 295);
+		
+			g.drawRect(200, 350, 200, 64);
+			g.drawString("Back", 265, 395);
 		}
 	}
 	

@@ -27,10 +27,10 @@ public class Handler {
 		for(int i = 0; i < object.size(); i ++) {
 			GameObject tempObject = object.get(i);
 			
-			if(tempObject.getId() == ID.Player1 || tempObject.getId() == ID.Player2) {
+			if(tempObject.getId() == ID.Player) {
 				object.clear();
-				addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player1,this ));
-				addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player1,this ));
+				addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player,this ));
+				addObject(new Player((int)tempObject.getX(), (int)tempObject.getY(), ID.Player,this ));
 			}
 		}
 	}

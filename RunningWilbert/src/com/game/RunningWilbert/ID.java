@@ -2,9 +2,9 @@ package com.game.RunningWilbert;
 
 public enum ID {
 
-	Player1(),
-	Player2(),
+	Player(),
 	BasicEnemy(),
+	HardEnemy(),
 	FastEnemy(),
 	SmartEnemy(),
 	Boss1(),

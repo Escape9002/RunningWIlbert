@@ -10,13 +10,13 @@ public class Player extends GameObject{
 	Random r = new Random();
 	Handler handler;
 	
-	private Color col;
+
 	
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		
-		col = new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255));
+		
 	}
 	
 	public void tick() {
@@ -28,7 +28,7 @@ public class Player extends GameObject{
 		
 		collision();
 		
-		handler.addObject(new Trail ((int)x, (int)y, ID.Trail, col ,32, 32, 0.05f, handler));
+		handler.addObject(new Trail ((int)x, (int)y, ID.Trail, Color.white ,32, 32, 0.05f, handler));
 	}
 	
 	public void collision() {

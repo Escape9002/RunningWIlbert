@@ -36,7 +36,7 @@ public class KeyInput extends KeyAdapter {
 		for(int i = 0; i< handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getId() == ID.Player1){
+			if(tempObject.getId() == ID.Player){
 				//Shit for player 1
 				
 				if(key == KeyEvent.VK_W) { tempObject.setVelY(-5); keyDown1[0] = true; }
@@ -47,16 +47,6 @@ public class KeyInput extends KeyAdapter {
 				
 				}
 			
-			if(tempObject.getId() == ID.Player2){
-				//Shit for player 2
-				
-				if(key == KeyEvent.VK_UP) { tempObject.setVelY(-5); keyDown2[0] = true; }
-				if(key == KeyEvent.VK_DOWN) { tempObject.setVelY(5); keyDown2[1] = true; }
-				
-				if(key == KeyEvent.VK_RIGHT) { tempObject.setVelX(5); keyDown2[2] = true; }
-				if(key == KeyEvent.VK_LEFT) { tempObject.setVelX(-5); keyDown2[3] = true; }
-				
-				}
 			}
 		
 		if(key == KeyEvent.VK_P && game.gameState == STATE.Game) {
@@ -73,7 +63,7 @@ public class KeyInput extends KeyAdapter {
 				for (int i= 0; i<10; i++) {
 					handler.addObject(new MenuParticle(r.nextInt(game.WIDTH),r.nextInt(game.HEIGHT), ID.MenuParticle, handler));
 				}
-			}else if(game.gameState == STATE.Help || game.gameState == STATE.Settings) {
+			}else if(game.gameState == STATE.Help || game.gameState == STATE.Select || game.gameState == STATE.End) {
 				
 				game.gameState = STATE.Menu;
 			}
@@ -87,7 +77,7 @@ public class KeyInput extends KeyAdapter {
 		for(int i = 0; i< handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getId() == ID.Player1){
+			if(tempObject.getId() == ID.Player){
 				//Shit for player 1
 				
 				if(key == KeyEvent.VK_W) keyDown1[0] = false; 
@@ -103,21 +93,7 @@ public class KeyInput extends KeyAdapter {
 				if (!keyDown1[2] && !keyDown1[3]) tempObject.setVelX(0);
 				}	
 			
-			if(tempObject.getId() == ID.Player2){
-				//Shit for player 2
-				
-				if(key == KeyEvent.VK_UP) keyDown2[0] = false; 
-				if(key == KeyEvent.VK_DOWN) keyDown2[1] = false; 
-				
-				if(key == KeyEvent.VK_RIGHT) keyDown2[2] = false; 
-				if(key == KeyEvent.VK_LEFT) keyDown2[3] = false; 
-				
-				
-				//vertical movement
-				if (!keyDown2[0] && !keyDown2[1]) tempObject.setVelY(0);
-				//horizontal2
-				if (!keyDown2[2] && !keyDown2[3]) tempObject.setVelX(0);
-				}	
+			
 			
 		}
 	}
