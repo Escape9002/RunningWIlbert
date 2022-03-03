@@ -13,3 +13,7 @@ https://www.youtube.com/channel/UCOs7Q7IeuzgRyARaEqif75A (YT-Account)
 https://www.youtube.com/watch?v=1gir2R7G9ws&list=PLWms45O3n--6TvZmtFHaCWRZwEqnz2MHa (official YT-Playlist)
 
 ! Have fun and courage !
+
+The used libs can be found here:
+http://www.mediafire.com/file/tjfu506bt9tsp56/Libs.zip/file (direct Link)
+https://www.youtube.com/watch?v=HRaJXVuZjRM&list=PLWms45O3n--6TvZmtFHaCWRZwEqnz2MHa&index=11 (YT-Link to the video concerning the AudioPlayer)
